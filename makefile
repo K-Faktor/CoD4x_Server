@@ -35,7 +35,9 @@ CC=gcc
 CPP=g++
 WIN_DEFINES=WINVER=0x501
 LINUX_DEFINES=_GNU_SOURCE
-CFLAGS=-m32 -msse2 -mfpmath=sse -Wall -fno-omit-frame-pointer -fmax-errors=15
+COMMON_FLAGS=-m32 -msse2 -mfpmath=sse -Wall -fno-omit-frame-pointer -fmax-errors=15
+CFLAGS=$(COMMON_FLAGS) -std=gnu11
+CXXFLAGS=$(COMMON_FLAGS) -std=gnu++11
 
 ifeq ($(DEBUG), true)
 DCFLAGS=-fno-pie -O0 -g
@@ -211,7 +213,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 # -march=nocona
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@echo   $(CPP)  $@
-	@$(CPP) -c $(CFLAGS) $(DCFLAGS) $(C_DEFINES) -o $@ $<
+	@$(CPP) -c $(CXXFLAGS) $(DCFLAGS) $(C_DEFINES) -o $@ $<
 
 ################################
 # A rule to build assemler code.
